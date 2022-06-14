@@ -9,10 +9,25 @@
   <body>
     <input
       type="text"
-      placeholder="Enter your name"
-      value="Markandey"
-      id="userNameTb"
+      placeholder="type something"
+      onkeyup="isBinary(event)"
+      onchange="messageChange(event)"
     />
-    <script src="object.js"></script>
+    <div id="output">output will come here</div>
+    <input
+      type="number"
+      id="buttonCountTB"
+      placeholder="How many buttons you want?"
+    />
+    <button onclick="renderButtons()">Submit</button>
+    <div id="buttons"></div>
+
+    <h1 id="clock"></h1>
+
+    <div id="products"></div>
+    <script src="function.js"></script>
+    <script src="events.js"></script>
+    <script src="callbacks.js"></script>
+    <script src="promise.js"></script>
   </body>
 </html>
