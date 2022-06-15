@@ -5,4 +5,3 @@ function renderClock() {
 }
 
 setInterval(renderClock, 1000); //at regular interval
-setTimeout(renderClock, 1000); //only once

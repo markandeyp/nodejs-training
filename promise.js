@@ -33,7 +33,14 @@ function failure(err) {
   console.log("failure err:", err);
 }
 
-fetch("https://fakestoreapi.com/products")
-  .then(toJson)
-  .then(success)
-  .catch(failure);
+var fetchPromise = fetch("https://fakestoreapi.com/products");
+
+console.log("Fetch Promise", fetchPromise);
+
+var jsonPromise = fetchPromise.then(toJson).catch(failure);
+
+console.log("Json Promise", jsonPromise);
+
+var finalPromise = jsonPromise.then(success).catch(failure);
+
+console.log("Final promise", finalPromise);
