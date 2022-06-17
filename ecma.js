@@ -54,8 +54,10 @@ const myObj = {
   key4: "value4",
   key5: "value5",
   key6: "value6",
+  key7: 10,
 };
 
-const { key, key2 } = myObj;
-
-console.log(`Key: ${key}, Key2: ${key2}`);
+{
+  let { key, key7 } = myObj;
+  console.log(`Key: ${key}, Key2: ${key7}`);
+}
