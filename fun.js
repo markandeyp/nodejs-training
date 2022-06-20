@@ -1,6 +1,3 @@
-const result = Array(100)
-  .fill(0)
-  .map((__, index) => index + 1)
-  .filter((number) => number % 5 === 0);
-
-console.log(result);
+const { range, reverseRange } = require("./range");
+console.log(range(1, 20));
+console.log(reverseRange(20, 1));
