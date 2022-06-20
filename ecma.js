@@ -61,3 +61,15 @@ const myObj = {
   let { key, key7 } = myObj;
   console.log(`Key: ${key}, Key2: ${key7}`);
 }
+
+const personName = "Node JS";
+const age = 12;
+const details = "The best guy on the block";
+
+const nodeObj = {
+  name: personName,
+  age,
+  details,
+};
+
+console.log(nodeObj);
