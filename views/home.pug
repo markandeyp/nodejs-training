@@ -1,0 +1,29 @@
+html
+    head
+        title= title
+        script(src="js/main.js")
+        link(rel="stylesheet", href="css/main.css")
+    body
+        include header.pug
+        div
+            h1= message
+            a(href= actionUrl target="_blank") Click Me
+            case day
+                when 1: p Monday
+                when 2: p Tuesday
+                default: p Funday
+            ul
+                - for (var x= from; x <= to; x++)
+                    li= x
+            ul
+                each name in names
+                    li= name
+            
+            if user
+                h1 #{user.name} is #{user.age} years old
+            
+            unless user
+                h1 No user defined
+            
+            button(onclick="onButtonClick()") Click Me
+        include footer.pug

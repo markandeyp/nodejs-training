@@ -1,5 +1,9 @@
-Create three endpoints
+# Create profile endpoint
 
-/status - return the server status as OK
-/time - return the current server time hh:mm AM/PM
-/counter - count the total hits to the endpoint
+## create a new view - profile.pug
+
+## include the header and footer templates
+
+## create an endpoint in express "/profile"
+
+## profile endpoint should render user's profile information (Profile Image, First Name, Last Name, Email, Addresses)
