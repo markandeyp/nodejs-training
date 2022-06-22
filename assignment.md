@@ -1,9 +1,5 @@
-# Create profile endpoint
+# Render user profile on home page
 
-## create a new view - profile.pug
+## Use the profile endpoint to pull single user's information (Profile Image, First Name, Last Name)
 
-## include the header and footer templates
-
-## create an endpoint in express "/profile"
-
-## profile endpoint should render user's profile information (Profile Image, First Name, Last Name, Email, Addresses)
+## Render user image (circular) on the right side of the header (next to the search field) along with User's first-name

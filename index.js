@@ -3,6 +3,8 @@ const app = require("express")();
 // JSON to parse the application/json body types
 const { json, static } = require("express");
 
+const { find, insert, insertMany } = require("./db");
+
 // Set default view engine to PUG
 app.set("view engine", "pug");
 
@@ -28,23 +30,40 @@ app.get("/status", function (req, res) {
 // 5xx - Internal Server Error
 
 // The home route
-app.get("/", (__, res) => {
-  const data = {
-    title: "Zensark Ecom",
-    message: "Welcome to the future",
-    actionUrl: "https://www.microsoft.com",
-    day: 3,
-    from: 1,
-    to: 10,
-    names: ["Markandey", "John", "Robert", "Meenakshi"],
-    user: {
-      name: "Pug",
-      age: 1,
-    },
-  };
-  res.status(200).render("home", data);
+app.get("/", async (__, res) => {
+  try {
+    const products = await find("products", {});
+    res.status(200).render("home", { products });
+  } catch (err) {
+    res.status(200).render("home", { error: err });
+  }
 });
 
+app.post("/product", async (req, res) => {
+  try {
+    const data = await insert("products", req.body);
+    if (data && data.insertedId) {
+      res.status(200).send({ data });
+    } else {
+      res.status(500).send({ data });
+    }
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
+
+app.post("/products", async (req, res) => {
+  try {
+    const data = await insertMany("products", req.body);
+    if (data && data.insertedCount) {
+      res.status(200).send({ data });
+    } else {
+      res.status(500).send({ data });
+    }
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
 // Start the express application
 app.listen(1234, function () {
   console.log(`Server is running @ http://localhost:1234`);

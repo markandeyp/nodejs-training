@@ -1,7 +1,6 @@
-header
-    nav
-        a(href="/") ECom
-        if user
-            button() Logout
-        else
-            button() Login
+header(class="sticky top-0 w-screen shadow-xl")
+    nav(class="px-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-between")
+        a(href="/")
+            img(src="/images/logo.svg" alt="logo" class="w-20 h-20")
+        form(class="w-3/12 mb-0")
+            input(type="text", name="search" placeholder="Find something" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
