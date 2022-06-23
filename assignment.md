@@ -1,5 +1,7 @@
-# Render user profile on home page
+# Allow user to add/update address list
 
-## Use the profile endpoint to pull single user's information (Profile Image, First Name, Last Name)
+## On profile page, display user's current addresses
 
-## Render user image (circular) on the right side of the header (next to the search field) along with User's first-name
+## Add a "Add" button to allow the user to enter a new address (Address line 1, City, State, Pincode)
+
+## Allow the user to edit an existing address

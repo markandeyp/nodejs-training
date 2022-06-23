@@ -1,9 +1,9 @@
 // Create an express application
 const app = require("express")();
 // JSON to parse the application/json body types
-const { json, static } = require("express");
+const { json, urlencoded, static } = require("express");
 
-const { find, insert, insertMany } = require("./db");
+const { find, insert, insertMany, findOne, updateOne } = require("./db");
 
 // Set default view engine to PUG
 app.set("view engine", "pug");
@@ -13,6 +13,8 @@ app.use(static("assets"));
 
 // Use json() to parse body
 app.use(json());
+// Use urlencoded() to parse form body
+app.use(urlencoded({ extended: true }));
 
 // The status route
 app.get("/status", function (req, res) {
@@ -33,9 +35,33 @@ app.get("/status", function (req, res) {
 app.get("/", async (__, res) => {
   try {
     const products = await find("products", {});
-    res.status(200).render("home", { products });
+    const profile = await findOne("profile", {});
+    res.status(200).render("home", { profile, products });
   } catch (err) {
     res.status(200).render("home", { error: err });
+  }
+});
+
+app.get("/profile", async (__, res) => {
+  try {
+    const profile = await findOne("profile", {});
+    res.status(200).render("profile", { profile });
+  } catch (err) {
+    res.status(200).render("profile", { error: err });
+  }
+});
+
+app.post("/profile", async (req, res) => {
+  const { _id, name, avatar } = req.body;
+  try {
+    const data = await updateOne("profile", _id, { name, avatar });
+    if (data && data.modifiedCount) {
+      res.redirect("/profile");
+    } else {
+      res.status(200).render("profile", { error: JSON.stringify(data) });
+    }
+  } catch (err) {
+    res.status(500).send({ err });
   }
 });
 
@@ -64,6 +90,7 @@ app.post("/products", async (req, res) => {
     res.status(500).send({ err });
   }
 });
+
 // Start the express application
 app.listen(1234, function () {
   console.log(`Server is running @ http://localhost:1234`);

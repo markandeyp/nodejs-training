@@ -1,0 +1,18 @@
+html
+    head
+        title Zensark Ecom
+        include head.pug
+    body
+        include header.pug
+        div(class="p-5 flex items-center justify-center")
+            if error
+                p(class="text-2xl text-red-500")= error
+            else 
+                if profile 
+                    div(class="w-4/12 p-5 shadow-lg rounded-log shadow-gray")
+                        form(class="flex flex-col gap-5" method="POST" action="/profile")
+                            input(type="hidden" name="_id" value= profile._id)
+                            input(type="text" name="name" placeholder="Enter full name" value= profile.name class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                            input(type="url" name="avatar" placeholder="Enter avatar url" value= profile.avatar class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                            button(class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800") Save
+        include footer.pug
