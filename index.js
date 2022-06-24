@@ -2,6 +2,7 @@
 const app = require("express")();
 // JSON to parse the application/json body types
 const { json, urlencoded, static } = require("express");
+const { ObjectId } = require("mongodb");
 
 const { find, insert, insertMany, findOne, updateOne } = require("./db");
 
@@ -88,6 +89,50 @@ app.post("/products", async (req, res) => {
     }
   } catch (err) {
     res.status(500).send({ err });
+  }
+});
+
+app.post("/newaddress", async (req, res) => {
+  const { _id, ...address } = req.body;
+  try {
+    const profile = await findOne("profile", { _id: new ObjectId(_id) });
+    if (profile) {
+      address.id = new ObjectId();
+      profile.addresses.push(address);
+      const data = await updateOne("profile", _id, profile);
+      if (data && data.modifiedCount) {
+        res.redirect("/profile");
+      } else {
+        res.status(200).render("profile", { error: JSON.stringify(data) });
+      }
+    }
+  } catch (err) {
+    res.status(200).render("profile", { error: JSON.stringify(err) });
+  }
+});
+
+app.post("/address", async (req, res) => {
+  const { _id, addressId, ...newAddress } = req.body;
+  try {
+    const profile = await findOne("profile", { _id: new ObjectId(_id) });
+    if (profile) {
+      const oldAddress = profile.addresses.find((add) => {
+        return new ObjectId(addressId).equals(add.id);
+      });
+      oldAddress.line1 = newAddress.line1;
+      oldAddress.city = newAddress.city;
+      oldAddress.postcode = newAddress.postcode;
+      oldAddress.country = newAddress.country;
+
+      const data = await updateOne("profile", _id, profile);
+      if (data && data.modifiedCount) {
+        res.redirect("/profile");
+      } else {
+        res.status(200).render("profile", { error: JSON.stringify(data) });
+      }
+    }
+  } catch (err) {
+    res.status(200).render("profile", { error: JSON.stringify(err) });
   }
 });
 

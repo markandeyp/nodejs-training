@@ -1,7 +1,11 @@
-# Allow user to add/update address list
+# Allow user to add/update the cart
 
-## On profile page, display user's current addresses
+## on header, display a cart icon with a counter
 
-## Add a "Add" button to allow the user to enter a new address (Address line 1, City, State, Pincode)
+## when user clicks on Bag It button, the item should be added to the cart (tip- use mongodb to add to a collection referenced by userid)
 
-## Allow the user to edit an existing address
+## if the item already exists in cart and user adds it again, the quantity should be increased
+
+## when user clicks the cart icon, they should see the list of bagged items along with quantity and total price
+
+## on cart page user should be able to remove an item from cart or change quantity.
